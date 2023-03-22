@@ -20,12 +20,6 @@ function App() {
     setNewTodoText(e.target.value)
   }
 
-  // prevent refresh
-  // prevent empty submission
-  // create a new todo object with id and text
-  // setTodos state to previous value plus new todo
-  // reset newTodoText
-
   const handleSubmit = (e) => {
     // prevent refresh
     e.preventDefault()
@@ -42,15 +36,36 @@ function App() {
     setNewTodoText('')
   }
 
+  let count = 0
+
+  function updateTodos(id, updatedTodoText) {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, text: updatedTodoText }
+      } else {
+        return todo
+      }
+    })
+    setTodos(updatedTodos)
+  }
+
   return (
-    <div className='App'>
+    <div className='App' style={{ color: 'red', backgroundColor: 'blue'}}>
+      <p>Count: {count ? { count } : null}</p>
+      <p>Count: {count && { count }}</p>
+      {console.log(typeof count)}
+
       <Header />
       <Form
         newTodoText={newTodoText}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <TodoList todos={todos} handleDelete={deleteTodo} />
+      <TodoList
+        todos={todos}
+        handleDelete={deleteTodo}
+        handleUpdate={updateTodos}
+      />
     </div>
   )
 }
