@@ -2,6 +2,10 @@ import { useState } from 'react'
 import Header from './Header'
 import TodoList from './TodoList'
 import Form from './Form'
+import Home from './Home'
+import Contact from './Contact'
+import { NavLink, Routes, Route } from 'react-router-dom'
+import './App.css'
 
 function App() {
   const [todos, setTodos] = useState([
@@ -50,22 +54,42 @@ function App() {
   }
 
   return (
-    <div className='App' style={{ color: 'red', backgroundColor: 'blue'}}>
-      <p>Count: {count ? { count } : null}</p>
+    <div className='App' >
+      {/* <p>Count: {count ? { count } : null}</p>
       <p>Count: {count && { count }}</p>
-      {console.log(typeof count)}
+      {console.log(typeof count)} */}
 
       <Header />
-      <Form
+      <nav style={{ display: "flex", gap: "20px" }}>
+        <NavLink to='/'>Homepage</NavLink>
+        <NavLink to='/todolist'>Todo List</NavLink>
+        <NavLink to='/contact'>Contact</NavLink>
+      </nav>
+      {/* <Form
         newTodoText={newTodoText}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-      />
-      <TodoList
+      /> */}
+      {/* <TodoList
         todos={todos}
         handleDelete={deleteTodo}
         handleUpdate={updateTodos}
-      />
+      /> */}
+
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route
+          path='/todolist'
+          element={
+            <TodoList
+              todos={todos}
+              handleDelete={deleteTodo}
+              handleUpdate={updateTodos}
+            />
+          }
+        />
+        <Route path='/contact' element={<Contact />} />
+      </Routes>
     </div>
   )
 }
